@@ -1,0 +1,67 @@
+IPL
+-------------
+IPL (Image Processing Library) is a collection of C routines for
+digital image processing, providing algorithms for image filtering,
+enhancement and segmentation, motion analysis and features detection.
+
+IPL is developed and maintained by Andrea Gagliardi La Gala
+(andrea@ameliemedia.com).
+
+
+APPLICABILITY
+-------------
+IPL's objective is to support research in a variety of domains and
+industries, including:
+  - Medical Imaging (enhancement of Gamma-Ray, X-Ray, Magnetic
+    Resonances and ultrasound images, such as bone and CT scans)
+  - Astronomical Imaging
+  - Forensic Imaging (enhancement of fingerprints and their ridges)
+  - Visual inspection of manufactured goods
+  - Surveillance systems
+
+Disclaimer: IPL is not approved or endorsed by any Organizations operating
+in the industries mentioned above, not even for clinical or diagnostic usage,
+and should not be relied upon for any diagnostic decisions. It is provided
+'as is' and any risks associated with its misuse or lack of quality lie
+completely with the user. The only purpose of IPL is to support and enhance
+research in the enlisted areas.
+
+
+LICENSING
+-------------
+IPL is released under the terms of the GNU General Public License version 3,
+which lets you freely redistribute it and/or modify it, as long as you preserve
+the credit information and license your derived work under the identical terms.
+
+
+EXTERNAL LIBS
+-------------
+IPL depends on and extends:
+  - Leptonica library by Dan S. Bloomberg (http://www.leptonica.com/)
+
+and (optionally) integrates:
+  - FFTW library by Matteo Frigo and Steven G. Johnson (http://www.fftw.org/)
+  - fuzzylite C++ library by Juan Rada-Vilela (http://code.google.com/p/fuzzy-lite/)
+
+to achieve fast and efficient image filtering and manipulation within the frequency
+domain (using the Discrete Fourier Transform and its inverse) and by using Fuzzy
+Logic (based on the theory of Fuzzy Sets first devised by Lotfi Zadeh).
+
+
+HOW TO BUILD
+-------------
+IPL can be compiled by any modern C99 compiler and runs on all major UNIX-based
+platforms. To build it:
+  - install Leptonica 1.68 (see instructions on Leptonica web pages)
+  - optionally install FFTW 3.2.2 (see instructions on FFTW web pages)
+  - optionally install fuzzylite 1.03 (see instructions on fuzzylite web pages)
+  - type in console:
+    ./configure [--prefix install-dir]
+    make
+    make install
+
+
+TUTORIALS
+-------------
+Watch out for our IPL tutorials at http://www.ameliemedia.com/ or contact us
+for commercial licensing options.
