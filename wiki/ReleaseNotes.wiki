@@ -6,7 +6,8 @@ Unless otherwise stated, all the following functions and utilities work on both 
 
 Image processing in the frequency domain:
   * 2D Discrete Fourier Transform and its inverse
-  * Ideal, Butterworth and Gaussian standard and selective filters
+  * Ideal, Butterworth and Gaussian lowpass and hipass filters
+  * Ideal, Butterworth and Gaussian bandpass and bandreject filters
   * Spectrum, phase angle and power spectrum
   * Phase correlation of two images
 
