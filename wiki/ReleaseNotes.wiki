@@ -8,7 +8,7 @@ Image processing in the frequency domain:
   * 2D Discrete Fourier Transform and its inverse
   * Ideal, Butterworth and Gaussian lowpass and hipass filters
   * Ideal, Butterworth and Gaussian bandpass and bandreject filters
-  * Spectrum, phase angle and power spectrum
+  * Spectrum, phase angle and power spectrum calculation and display
   * Phase correlation of two images
 
 Spatial filters:
@@ -21,7 +21,7 @@ Windowing functions:
   * Tukey window
   * Blackman window
 
-Noise and random distribution utilities:
+Random distributions and noise generation:
   * Uniform noise
   * Gaussian noise
   * Rayleigh noise
@@ -30,7 +30,7 @@ Noise and random distribution utilities:
   * Impulse (salt-and-pepper) noise
 
 Corner detectors:
-  * Moravec operator
+  * Moravec interest operator
 
 Motion analysis:
   * Absolute difference of two images
