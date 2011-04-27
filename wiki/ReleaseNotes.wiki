@@ -57,12 +57,17 @@ Image sharpening:
   * Fast laplacian
   * Whole body bone scan enhancement
 
-Fuzzy transformations:
-  * Fuzzy-based contrast enhancement
+Fuzzy logic transformations:
+  * Fuzzy contrast enhancement
 
 ===Rel. 0.3 - Jul 1, 2011 (tentative)===
 
 Image processing in the frequency domain:
+  * Homomorphic filtering
   * Notch filters
   * Inverse and Wiener filters
   * Cross-correlation and auto-correlation
+  * Laplacian in the frequency domain
+
+Fuzzy logic transformations:
+  * Fuzzy image segmentation
