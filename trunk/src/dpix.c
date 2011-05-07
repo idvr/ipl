@@ -258,7 +258,7 @@ dpixConvertToPix(DPIX    *dpixs,
 	if (negvals != L_CLIP_TO_ZERO && negvals != L_TAKE_ABSVAL &&
 		negvals != L_THRESH_NEG_TO_BLACK && negvals != L_THRESH_NEG_TO_WHITE)
         return (PIX *)ERROR_PTR("invalid negvals", procName, NULL);
-    if (outdepth != 0 && outdepth != 1 && outdepth != 8 && outdepth != 16 && outdepth != 32)
+    if (outdepth != 0 && outdepth != 8 && outdepth != 16 && outdepth != 32)
         return (PIX *)ERROR_PTR("outdepth not in {0,8,16,32}", procName, NULL);
 	if (shiftflag != L_NO_SHIFTING && shiftflag != L_WITH_SHIFTING)
         return (PIX *)ERROR_PTR("invalid shiftflag", procName, NULL);
@@ -268,8 +268,6 @@ dpixConvertToPix(DPIX    *dpixs,
     wpls = dpixGetWpl(dpixs);
 	
 	/* Adaptive determination of output depth */
-	if (negvals == L_THRESH_NEG_TO_BLACK || negvals == L_THRESH_NEG_TO_WHITE)
-		outdepth = 1;
     if (outdepth == 0) {
 		outdepth = 8;
 		for (i = 0; i < h; i++) {
@@ -322,13 +320,13 @@ dpixConvertToPix(DPIX    *dpixs,
 				val *= pow(-1, i + j);
             if (val > 0.0) {
 				if (negvals == L_THRESH_NEG_TO_BLACK || negvals == L_THRESH_NEG_TO_WHITE)
-					vald = negvals == L_THRESH_NEG_TO_BLACK ? 1 : 0;
+					vald = negvals == L_THRESH_NEG_TO_BLACK ? maxval : 0;
 				else
 					vald = (l_uint32)(val + 0.5);
 			}
             else { /* val <= 0.0 */
 				if (negvals == L_THRESH_NEG_TO_BLACK || negvals == L_THRESH_NEG_TO_WHITE)
-					vald = negvals == L_THRESH_NEG_TO_BLACK ? 0 : 1;
+					vald = negvals == L_THRESH_NEG_TO_BLACK ? 0 : maxval;
                 else if (negvals == L_CLIP_TO_ZERO)
                     vald = 0;
                 else
@@ -336,9 +334,7 @@ dpixConvertToPix(DPIX    *dpixs,
             }
             if (vald > maxval)
                 vald = maxval;
-			if (outdepth == 1)
-				vald > 0 ? SET_DATA_BIT(lined, j) : CLEAR_DATA_BIT(lined, j);
-            else if (outdepth == 8)
+            if (outdepth == 8)
                 SET_DATA_BYTE(lined, j, vald);
             else if (outdepth == 16)
                 SET_DATA_TWO_BYTES(lined, j, vald);
