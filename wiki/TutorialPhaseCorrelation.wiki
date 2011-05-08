@@ -1,0 +1,73 @@
+= Fingerprint enhancement and phase correlation =
+
+This tutorial is intended to get you started with IPL and to quickly showcase the functionalities provided for image enhancement and phase correlation.
+
+In image processing, [http://en.wikipedia.org/wiki/Phase_correlation phase correlation] is a method of image registration, and uses a fast frequency-domain approach to estimate the relative translative offset between two similar images.
+
+For example, we can make use of phase correlation to find out if two fingerprint images are actually the same. In fact, if we acquire a reference image of a person's fingerprint, we should be able to quickly discover the degree of similarity of subsequent scans of that same fingerprint, provided that the person is likely to touch the fingerprint sensor every time in a slightly different position.
+
+== Highpass image filtering ==
+
+For the sake of simplicity, let's assume in this demo that we have acquired the following reference fingeprint image:
+
+[http://ipl.googlecode.com/svn/images/fingerprints/original.png]
+
+_(Original image courtesy of the U.S. National Institute of Standards and Technology)_
+
+As a preliminary step, we can enhance the image details by reducing the effect of smudges and highlighting the fingerprint ridges. We can do this, by operating in the frequency domain and applying a [http://en.wikipedia.org/wiki/Butterworth_filter Butterworth] highpass filter to the image.
+
+{{{
+/* 1. Read, pad and display fingerprint pix */
+pixt = pixRead("images/original.png");
+pixs = pixAddPadding(pixt);
+pixWrite("padded.png", pixs, IFF_PNG); 
+pixDestroy(&pixt);
+
+/* 2. Display spectrum of padded pix */
+pixd = pixDisplaySpectrum(pixs, 1, L_WITH_SHIFTING, L_HI_TO_WHITE);
+pixWrite("spectrum.png", pixs, IFF_PNG); 
+pixDestroy(&pixd);
+
+/* 3. Filter via hipass Butterworth filter, and display filter */
+pixt = pixButterworthFilter(pixs, 50, 4, L_HI_PASS, L_CLIP_TO_ZERO, &dpix);
+pixd = pixDisplayFilter(dpix);
+pixWrite("filter.png", pixd, IFF_PNG); 
+pixDestroy(&pixd);
+pixDestroy(&pixs);
+
+/* 4. Remove pix padding and display filtered pix */
+pixs = pixRemovePadding(pixt);
+pixDestroy(&pixt);
+pixWrite("hipass.png", pixs, IFF_PNG); 
+pixDestroy(&pixs);
+}}}
+
+The code above will generate and display the following images:
+
+[http://ipl.googlecode.com/svn/images/fingerprints/padded.png]
+[http://ipl.googlecode.com/svn/images/fingerprints/spectrum.png]
+[http://ipl.googlecode.com/svn/images/fingerprints/filter.png]
+[http://ipl.googlecode.com/svn/images/fingerprints/hipass.png]
+
+The first step is to pad the reference image with zeroes at its right and bottom, thus doubling its size. This is necessary if we are to avoid inaccuracies in the calculation of the Fourier spectrum, since the Fourier transform assumes that we deal with periodic images (we could avoid doubling the size of the image with padding by using one of the IPL windowing functions, which are the subject of a different tutorial).
+
+Then we display the spectrum and filter the image by a Butterworth highpass filter of order 4 with a cutoff frequency of 50. As expected, the filter sharpens the image but it also darkens the gray tones since the DC term (shifted in the middle of the spectrum) is reduced to zero.
+
+We display the spatial representation of the Butterworth filter applied as well as the resulting filtered image of the fingerprint (after padding has been removed).
+
+We can enhance details of interest by thresholding the filtered image. If in our code above we replace the statement:
+
+{{{pixt = pixButterworthFilter(pixs, 50, 4, L_HI_PASS, L_CLIP_TO_ZERO, &dpix);}}}
+
+with:
+
+{{{pixt = pixButterworthFilter(pixs, 50, 4, L_HI_PASS, L_THRESH_NEG_TO_BLACK, &dpix);}}}
+
+we set to black all negative values and to white all positive values in the filtered image.
+
+You can see the results in the image below:
+
+[http://ipl.googlecode.com/svn/images/fingerprints/original.png]
+[http://ipl.googlecode.com/svn/images/fingerprints/threshold.png]
+
+Compare the thresholded image to the reference one and see how ridges are clear and the effect of smudges are reduced considerably.
