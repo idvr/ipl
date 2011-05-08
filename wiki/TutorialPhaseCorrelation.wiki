@@ -14,7 +14,7 @@ For the sake of simplicity, let's assume in this demo that we have acquired the 
 
 _(Original image courtesy of the U.S. National Institute of Standards and Technology)_
 
-As a preliminary step, we can enhance the image details by reducing the effect of smudges and highlighting the fingerprint ridges. We can do this, by operating in the frequency domain and applying a [http://en.wikipedia.org/wiki/Butterworth_filter Butterworth] highpass filter to the image.
+As a preliminary step, we can enhance the image details by reducing the effect of smudges and highlighting the fingerprint ridges. One way to achieve this is by operating in the frequency domain and applying a [http://en.wikipedia.org/wiki/Butterworth_filter Butterworth] highpass filter to the image.
 
 {{{
 /* 1. Read, pad and display fingerprint pix */
@@ -55,7 +55,7 @@ Then we display the spectrum and filter the image by a Butterworth highpass filt
 
 We also show the spatial representation of the Butterworth filter applied as well as the resulting filtered image of the fingerprint (after padding has been removed).
 
-We can enhance details of interest by thresholding the filtered image. If in our code above we replace the statement:
+In this case, it is useful to enhance details of interest by thresholding the filtered image. If in our code above we replace the statement:
 
 {{{pixt = pixButterworthFilter(pixs, 50, 4, L_HI_PASS, L_CLIP_TO_ZERO, &dpix);}}}
 
@@ -74,7 +74,7 @@ Compare the thresholded image to the reference one and see how ridges are clear 
 
 == Image alignment via phase correlation ==
 
-Now that we have a clearer picture of the reference fingerprint image, we can examine it to identify its minutiae and other features, thus determining the region of interest (ROI) that uniquely distinguishes that fingerprint from others belonging to different persons.
+Now that we have a clearer picture of the reference fingerprint image, we can examine it to identify its _minutiae_ and other features, thus determining the region of interest (ROI) that uniquely distinguishes that fingerprint from others belonging to different persons.
 
 For simplicity, we assume that the ROI has been determined by the square with the top-left corner at coordinates 338, 312 (on the _x_ and _y_ planes, respectively), of width 160 pixels.
 
@@ -87,7 +87,7 @@ pixWrite("hipass.png", pixs, IFF_PNG);
 boxDestroy(&box);
 }}}
 
-If the image is grayscale, we can convert it from 8-bit to 32-bit depth by a call to the `pixConvertTo32();' function.
+If the image is grayscale, we can convert it from 8-bit to 32-bit depth by a call to the `pixConvertTo32();` function.
 
 [http://ipl.googlecode.com/svn/images/fingerprints/roi.png]
 
@@ -118,7 +118,7 @@ In fact, if we can visualize the results by displaying a box around the ROI as d
 {{{
 box = boxCreate(338 + x, 312 + y, 160, 160);
 pixRenderBoxArb(pixfp2, box, 7, 0xFF, 0x00, 0x00);
-pixWrite("correl.png", pixs, IFF_PNG); 
+pixWrite("correl.png", pixfp2, IFF_PNG); 
 boxDestroy(&box);
 }}}
 
