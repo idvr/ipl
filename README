@@ -5,7 +5,7 @@ digital image processing, providing algorithms for image filtering,
 enhancement and segmentation, motion analysis and features detection.
 
 IPL is developed and maintained by Andrea Gagliardi La Gala
-(andrea@ameliemedia.com).
+(andrea.lagala@gmail.com).
 
 
 APPLICABILITY
@@ -63,5 +63,4 @@ platforms. To build it:
 
 TUTORIALS
 -------------
-Watch out for our IPL tutorials at http://www.ameliemedia.com/ or contact us
-for commercial licensing options.
+Watch out for our IPL tutorials published on Wiki (http://code.google.com/p/ipl/w/list) or contact us for commercial licensing options.
