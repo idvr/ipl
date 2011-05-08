@@ -2,8 +2,8 @@
  * IPL (Image Processing Library)
  *
  * Copyright (C) 2011 Andrea Gagliardi La Gala.
- * Email: andrea@ameliemedia.com
- * Web: http://www.ameliemedia.com/
+ * Email: andrea.lagala@gmail.com
+ * Web: http://code.google.com/p/ipl/
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

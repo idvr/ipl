@@ -1,5 +1,5 @@
 AC_PREREQ([2.50])
-AC_INIT([libipl], [1.01], [andrea.lagala@ameliemedia.com])
+AC_INIT([libipl], [1.01], [andrea.lagala@gmail.com])
 AC_CONFIG_AUX_DIR([config])
 AM_CONFIG_HEADER([config_auto.h:config/config.h.in])
 AC_CONFIG_SRCDIR([src/corner.c])
