@@ -53,7 +53,7 @@ The first step is to pad the reference image with zeroes at its right and bottom
 
 Then we display the spectrum and filter the image by a Butterworth highpass filter of order 4 with a cutoff frequency of 50. As expected, the filter sharpens the image but it also darkens the gray tones since the DC term (shifted in the middle of the spectrum) is reduced to zero.
 
-We display the spatial representation of the Butterworth filter applied as well as the resulting filtered image of the fingerprint (after padding has been removed).
+We also show the spatial representation of the Butterworth filter applied as well as the resulting filtered image of the fingerprint (after padding has been removed).
 
 We can enhance details of interest by thresholding the filtered image. If in our code above we replace the statement:
 
@@ -71,3 +71,64 @@ You can see the results in the image below:
 [http://ipl.googlecode.com/svn/images/fingerprints/threshold.png]
 
 Compare the thresholded image to the reference one and see how ridges are clear and the effect of smudges are reduced considerably.
+
+== Image alignment via phase correlation ==
+
+Now that we have a clearer picture of the reference fingerprint image, we can examine it to identify its minutiae and other features, thus determining the region of interest (ROI) that uniquely distinguishes that fingerprint from others belonging to different persons.
+
+For simplicity, we assume that the ROI has been determined by the square with the top-left corner at coordinates 338, 312 (on the _x_ and _y_ planes, respectively), of width 160 pixels.
+
+We can display a red ROI box with the following code:
+
+{{{
+box = boxCreate(338, 312, 160, 160);
+pixRenderBoxArb(pixs, box, 7, 0xFF, 0x00, 0x00);
+pixWrite("hipass.png", pixs, IFF_PNG); 
+boxDestroy(&box);
+}}}
+
+If the image is grayscale, we can convert it from 8-bit to 32-bit depth by a call to the `pixConvertTo32();' function.
+
+[http://ipl.googlecode.com/svn/images/fingerprints/roi.png]
+
+We can use the phase correlation method of registration to compare and align our reference image to another image of the same fingerprint, characterized by a translative offset.
+
+The images below show the reference fingerprint and newly acquired one:
+
+[http://ipl.googlecode.com/svn/images/fingerprints/original.png]
+[http://ipl.googlecode.com/svn/images/fingerprints/scan.png]
+
+We filter and threshold the new fingerprint image following the same process described above. Then we compare the two images by phase correlation using the following code:
+
+{{{
+pixPhaseCorrelation(pixfp1, pixfp2, &peak, &x, &y);
+printf("phase correlation: peak = %f at %d, %d\n", peak, x, y);
+}}}
+
+where `pixfp1` is the reference image and `pixfp2` is the newly acquired one (both images have been filtered and thresholded). 
+
+IPL is going to output something like:
+
+`phase correlation: peak = 0.172683 at -226, -162`
+
+indicating that the ROI in the new image is shifted 226 pixels on the right and 162 pixels on the top, compared to the reference fingerprint. This offset can be used to align the two images.
+
+In fact, if we can visualize the results by displaying a box around the ROI as determined in the new image:
+
+{{{
+box = boxCreate(338 + x, 312 + y, 160, 160);
+pixRenderBoxArb(pixfp2, box, 7, 0xFF, 0x00, 0x00);
+pixWrite("correl.png", pixs, IFF_PNG); 
+boxDestroy(&box);
+}}}
+
+thus obtaining:
+
+[http://ipl.googlecode.com/svn/images/fingerprints/roi.png]
+[http://ipl.googlecode.com/svn/images/fingerprints/correl.png]
+
+== Conclusions ==
+
+In this tutorial we have shown how to filter images in the frequency domain (using, in our particular example, a Butterworth highpass filter for sharpening and thresholding) and align two images using the phase correlation registration method.
+
+Although the example was kept brief for reasons of simplicity, it should be sufficient to give you a flavor of the functionalities provided by IPL and to get you started with its usage.
