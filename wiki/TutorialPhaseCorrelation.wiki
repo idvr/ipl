@@ -14,7 +14,7 @@ For the sake of simplicity, let's assume in this demo that we have acquired the 
 
 _(Original image courtesy of the U.S. National Institute of Standards and Technology)_
 
-As a preliminary step, we can enhance the image details by reducing the effect of smudges and highlighting the fingerprint ridges. One way to achieve this is by operating in the frequency domain and applying a [http://en.wikipedia.org/wiki/Butterworth_filter Butterworth] highpass filter to the image.
+As a preliminary step, we can enhance the image details by reducing the effect of smudges and highlighting the fingerprint ridges. One way to achieve this is by operating in the frequency domain and apply a [http://en.wikipedia.org/wiki/Butterworth_filter Butterworth] highpass filter to the image.
 
 {{{
 /* 1. Read, pad and display fingerprint pix */
@@ -87,7 +87,7 @@ pixWrite("hipass.png", pixs, IFF_PNG);
 boxDestroy(&box);
 }}}
 
-If the image is grayscale, we can convert it from 8-bit to 32-bit depth by a call to the `pixConvertTo32();` function.
+If the image is grayscale, we can convert it from 8-bit to 32-bit depth by a call to the `pixConvertTo32()` function.
 
 [http://ipl.googlecode.com/svn/images/fingerprints/roi.png]
 
