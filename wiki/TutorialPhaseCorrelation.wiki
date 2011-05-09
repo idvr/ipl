@@ -32,6 +32,7 @@ pixDestroy(&pixd);
 pixt = pixButterworthFilter(pixs, 50, 4, L_HI_PASS, L_CLIP_TO_ZERO, &dpix);
 pixd = pixDisplayFilter(dpix);
 pixWrite("filter.png", pixd, IFF_PNG); 
+dpixDestroy(&dpix);
 pixDestroy(&pixd);
 pixDestroy(&pixs);
 
