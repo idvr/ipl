@@ -14,7 +14,7 @@ For the sake of simplicity, let's assume in this demo that we have acquired the 
 
 _(Original image courtesy of the U.S. National Institute of Standards and Technology)_
 
-As a preliminary step, we can enhance the image details by reducing the effect of smudges and highlighting the fingerprint ridges. One way to achieve this is by operating in the frequency domain and apply a [http://en.wikipedia.org/wiki/Butterworth_filter Butterworth] highpass filter to the image.
+As a preliminary step, we can enhance the image details by reducing the effect of smudges and highlight the fingerprint ridges. One way to achieve this is by operating in the frequency domain and apply a [http://en.wikipedia.org/wiki/Butterworth_filter Butterworth] highpass filter to the image.
 
 {{{
 /* 1. Read, pad and display fingerprint pix */
@@ -70,7 +70,7 @@ You can see the results in the image below:
 [http://ipl.googlecode.com/svn/images/fingerprints/original.png]
 [http://ipl.googlecode.com/svn/images/fingerprints/threshold.png]
 
-Compare the thresholded image to the reference one and see how ridges are clear and the effect of smudges are reduced considerably.
+Compare the thresholded image to the reference one and see how ridges are clearer and the effect of smudges are reduced considerably.
 
 == Image alignment via phase correlation ==
 
@@ -113,7 +113,7 @@ IPL is going to output something like:
 
 indicating that the ROI in the new image is shifted 226 pixels on the right and 162 pixels on the top, compared to the reference fingerprint. This offset can be used to align the two images.
 
-In fact, if we can visualize the results by displaying a box around the ROI as determined in the new image:
+In fact, we can visualize the results by displaying a box around the ROI as determined in the new image:
 
 {{{
 box = boxCreate(338 + x, 312 + y, 160, 160);
