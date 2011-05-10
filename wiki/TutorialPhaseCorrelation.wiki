@@ -71,7 +71,7 @@ You can see the results in the image below:
 [http://ipl.googlecode.com/svn/images/fingerprints/original.png]
 [http://ipl.googlecode.com/svn/images/fingerprints/threshold.png]
 
-Compare the thresholded image to the reference one and see how ridges are clearer and the effect of smudges are reduced considerably.
+Compare the thresholded image to the reference one and observe how ridges are clearer and the effect of smudges are reduced considerably.
 
 == Image alignment via phase correlation ==
 
